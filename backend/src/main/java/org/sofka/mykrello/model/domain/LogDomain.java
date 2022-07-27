@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
@@ -30,6 +31,9 @@ public class LogDomain implements Serializable {
     @Column(name = "log_id", nullable = false, updatable = false)
     private Integer id;
 
+    @Column(name = "tsk_id_task", nullable = false)
+    private Integer taskId;
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "clm_id_previous", nullable = false, updatable = false)
     @JsonBackReference(value = "logPrevious")
@@ -42,5 +46,9 @@ public class LogDomain implements Serializable {
 
     @Column(name = "log_created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
+
+    @ManyToOne(targetEntity = TaskDomain.class)
+    @JoinColumn(name = "tsk_id_task", insertable = false, updatable = false)
+    private TaskDomain taskDomain;
 
 }
