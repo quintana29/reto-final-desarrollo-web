@@ -1,8 +1,10 @@
 package org.sofka.mykrello.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.sofka.mykrello.model.domain.TaskDomain;
+import org.sofka.mykrello.model.repository.BoardRepository;
 import org.sofka.mykrello.model.repository.TaskRepository;
 import org.sofka.mykrello.model.service.interfaces.TaskServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +17,24 @@ public class TaskService implements TaskServiceInterface {
     private LogService logService;
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Override
-    public List<TaskDomain> findAllTasksById(Integer idBoard) {
-        // TODO Auto-generated method stub
-            return taskRepository.findAll();
+    public List<TaskDomain> findAllTasksByIdFromBoard(Integer idBorad){
+        return taskRepository.findAllByIdBoard(idBorad);
     }
 
     @Override
-    public TaskDomain findById(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+    public Optional<TaskDomain> findById(Integer id) {
+
+        return taskRepository.findById(id);
     }
 
     @Override
     public TaskDomain create(TaskDomain task) {
-        // TODO Auto-generated method stub
-        return null;
+
+        return taskRepository.save(task);
     }
 
     @Override
@@ -41,8 +44,13 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
-    public TaskDomain delete(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+    public Optional<TaskDomain> delete(Integer id) {
+        var getTask = taskRepository.findById(id);
+        if (getTask.isEmpty()) {
+            return Optional.empty();
+        }
+        taskRepository.deleteById(id);
+        return getTask;
+
     }
 }
