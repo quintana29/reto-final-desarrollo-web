@@ -43,15 +43,16 @@ public class TaskController {
         response.data = taskService.create(task);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
    @DeleteMapping("/Delete/{id}")
    public ResponseEntity<MyResponseUtility> deleteTask(@PathVariable("id") Integer id){
        try{
-           var invoice = taskService.delete(id);
-           if (invoice.isEmpty()) {
-               response.responseMessage(false,HttpStatus.NOT_FOUND, "Invoice not exist in database");
+           var task = taskService.delete(id);
+           if (task.isEmpty()) {
+               response.responseMessage(false,HttpStatus.NOT_FOUND, "No se encontro la tarea");
                return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
            }
-           response.responseMessage(true,HttpStatus.OK, "Invoice removed successfully",invoice);
+           response.responseMessage(true,HttpStatus.OK, "Se elimino la tarea correctamente",task);
            return new ResponseEntity<>(response,HttpStatus.OK);
        }catch (DataAccessException e){
            response.responseMessage(false, HttpStatus.BAD_REQUEST, e.getCause().getCause().getMessage());

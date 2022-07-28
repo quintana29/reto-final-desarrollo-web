@@ -56,7 +56,7 @@ public class TaskDomain implements Serializable {
     @JoinColumn(name = "clm_id_column", insertable = false, updatable = false)
     private ColumnDomain columnDomain;
 
-    @JoinColumn(name = "brd_id_board", nullable = false, insertable = false, updatable = false)
+   @JoinColumn(name = "brd_id_board", nullable = false, insertable = false, updatable = false)
     @ManyToOne(targetEntity = BoardDomain.class)
     private BoardDomain boardDomain;
 

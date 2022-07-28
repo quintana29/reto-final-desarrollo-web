@@ -21,10 +21,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@JsonIgnoreProperties(value = {"previous",
-        "current"
-}, allowGetters = true, allowSetters = false,
-        ignoreUnknown = true)
 @Table(name = "krl_log")
 public class LogDomain implements Serializable {
 
@@ -38,10 +34,10 @@ public class LogDomain implements Serializable {
     @Column(name = "tsk_id_task", nullable = false)
     private Integer taskId;
 
-    @Column(name = "clm_id_previous", nullable = false)
+    @Column(name = "clm_id_previous", insertable = false, updatable = false)
     private Integer idPrevious;
 
-    @Column(name = "clm_id_current", nullable = false)
+    @Column(name = "clm_id_current", insertable = false, updatable = false)
     private Integer idCurrent;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.ALL)

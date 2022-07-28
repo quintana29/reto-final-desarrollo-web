@@ -37,7 +37,6 @@ public class LogService implements LogServiceInterface {
     public void upDateLog(Integer id, LogDomain logDomain) {
         logDomain.setIdPrevious(logDomain.getIdCurrent());
         logDomain.setIdCurrent(id);
-
         logRepository.save(logDomain);
     }
 
