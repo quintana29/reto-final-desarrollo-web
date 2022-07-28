@@ -49,13 +49,18 @@ public class TaskService implements TaskServiceInterface {
     @Override
     @Transactional
     public Optional<TaskDomain> delete(Integer id) {
-        var optionalTask = taskRepository.findById(id);
-        if (optionalTask.isPresent()) {
-            logService.deleteLogByTaskId(id);
-            taskRepository.deleteById(id);
 
-            return optionalTask;
+
+        List<Integer> idTask = taskRepository.findIdTasks(id);
+
+        for(Integer task : idTask){
+            logService.deleteLogByTaskId(task);
         }
+        for(Integer task : idTask){
+           taskRepository.deleteById(task);
+        }
+
+
         return null;
     }
 

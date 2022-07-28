@@ -15,4 +15,7 @@ public interface TaskRepository extends JpaRepository<TaskDomain, Integer> {
     //nativeQuery = true)
     List<TaskDomain> findAllByIdBoard(Integer idBoard);
 
+    @Query(value = "Select tsk_id from krl_task where brd_id_board = ?1", nativeQuery = true)
+    List<Integer> findIdTasks(Integer id);
+
 }

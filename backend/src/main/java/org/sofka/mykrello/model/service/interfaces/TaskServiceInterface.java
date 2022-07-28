@@ -11,4 +11,5 @@ public interface TaskServiceInterface {
     public TaskDomain create(TaskDomain task);
     public TaskDomain update(Integer id, TaskDomain task);
     public Optional<TaskDomain> delete(Integer id);
+
 }
