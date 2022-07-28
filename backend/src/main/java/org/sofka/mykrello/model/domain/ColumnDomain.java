@@ -47,20 +47,20 @@ public class ColumnDomain implements Serializable {
     @Column(name = "clm_updated_at")
     private Instant updatedAt;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "previous")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "previous",orphanRemoval = true)
     @JsonManagedReference(value = "logPrevious")
     private List<LogDomain> logPrevious = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "current")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "current",orphanRemoval = true)
     @JsonManagedReference(value = "logCurrent")
     private List<LogDomain> logCurrent = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = ColumnForBoardDomain.class, cascade = CascadeType.ALL, mappedBy = "column")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = ColumnForBoardDomain.class, cascade = CascadeType.ALL, mappedBy = "column",orphanRemoval = true)
     @JsonManagedReference(value = "columnForBoards")
     private List<ColumnForBoardDomain> columnForBoards = new ArrayList<>();
 
-    /*@OneToMany(targetEntity = TaskDomain.class, fetch = FetchType.EAGER, mappedBy = "column")
+    @OneToMany(targetEntity = TaskDomain.class, fetch = FetchType.EAGER, mappedBy = "columnDomain",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonManagedReference(value = "column-task")
-    private List<TaskDomain> tasks = new ArrayList<>();*/
+    private List<TaskDomain> tasks = new ArrayList<>();
 
 }
