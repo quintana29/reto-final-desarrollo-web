@@ -39,5 +39,10 @@ public class LogService implements LogServiceInterface {
         logDomain.setIdCurrent(id);
         logRepository.save(logDomain);
     }
+    @Override
+    @Transactional
+    public void deleteAllByTaskId(Integer taskId) {
+        logRepository.deleteByTask(taskId);
+    }
 
 }

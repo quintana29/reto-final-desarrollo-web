@@ -8,14 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //@CrossOrigin(value = "*")
 @RestController
@@ -42,6 +35,27 @@ public class TaskController {
     public ResponseEntity<MyResponseUtility> saveTask(@RequestBody TaskDomain task){
         response.data = taskService.create(task);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<MyResponseUtility> updateTask(@PathVariable("id") Integer taskId, @RequestBody TaskDomain task) {
+        try {
+            var taskUpdate = taskService.update(taskId, task);
+            if (taskUpdate == null) {
+                response.responseMessage(false,HttpStatus.NOT_FOUND, "No se encontro la tarea");
+                return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+            }
+            response.responseMessage(true,HttpStatus.OK, "Se actualizo la tarea",task);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+
+        }catch (DataAccessException e){
+            response.responseMessage(false, HttpStatus.BAD_REQUEST, e.getCause().getCause().getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            response.responseMessage(false, HttpStatus.BAD_REQUEST, e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
     }
 
    @DeleteMapping("/Delete/{id}")

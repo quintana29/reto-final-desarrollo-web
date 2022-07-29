@@ -42,6 +42,11 @@ public class TaskService implements TaskServiceInterface {
     @Override
     @Transactional
     public TaskDomain update(Integer id, TaskDomain task) {
+        var oldTask = taskRepository.findById(id).orElse(null);
+
+        if (oldTask != null){
+            return taskRepository.save(task);
+        }
 
         return null;
     }
@@ -51,17 +56,14 @@ public class TaskService implements TaskServiceInterface {
     public Optional<TaskDomain> delete(Integer id) {
 
 
-        List<Integer> idTask = taskRepository.findIdTasks(id);
-
-        for(Integer task : idTask){
-            logService.deleteLogByTaskId(task);
+        var task = taskRepository.findById(id);
+        if (task != null){
+            logService.deleteAllByTaskId(id);
+            taskRepository.deleteById(id);
+            return task;
         }
-        for(Integer task : idTask){
-           taskRepository.deleteById(task);
-        }
-
-
         return null;
+
     }
 
 
