@@ -3,6 +3,7 @@ package org.sofka.mykrello.model.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.sofka.mykrello.model.domain.LogDomain;
 import org.sofka.mykrello.model.domain.TaskDomain;
 import org.sofka.mykrello.model.repository.BoardRepository;
 import org.sofka.mykrello.model.repository.TaskRepository;
@@ -21,6 +22,10 @@ public class TaskService implements TaskServiceInterface {
     private TaskRepository taskRepository;
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private  BoardService boardService;
+
+
 
 
     @Override
@@ -37,7 +42,17 @@ public class TaskService implements TaskServiceInterface {
 
     @Override
     @Transactional
-    public TaskDomain create(TaskDomain task) {return taskRepository.save(task);}
+    public TaskDomain create(TaskDomain task) {
+        var boardExists = boardService.findById(task.getIdBoard());                            //Valida si el board existe en la base de datos
+        if (boardExists != null) {
+            taskRepository.save(task);
+
+            var log = new LogDomain(task.getId(), task.getIdColum(), task.getIdColum());
+            logService.create(log);
+
+        }
+        return task;
+    }
 
     @Override
     @Transactional
@@ -55,7 +70,6 @@ public class TaskService implements TaskServiceInterface {
     @Transactional
     public Optional<TaskDomain> delete(Integer id) {
 
-
         var task = taskRepository.findById(id);
         if (task != null){
             logService.deleteAllByTaskId(id);
@@ -65,6 +79,24 @@ public class TaskService implements TaskServiceInterface {
         return null;
 
     }
+    public TaskDomain moveTask(Integer taskId, Integer columnId) {
 
+        var task = taskRepository.findById(taskId).orElse(null);
+
+        if (task != null) {
+            var oldColumn = task.getIdColum();
+            task.setIdColum(columnId);
+
+            var log = new LogDomain(task.getId(),oldColumn,columnId);
+            logService.create(log);
+
+            var taskUpdate = taskRepository.save(task);
+
+
+            return taskUpdate;
+        }
+
+        return null;
+    }
 
 }

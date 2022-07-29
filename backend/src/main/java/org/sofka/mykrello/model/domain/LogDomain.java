@@ -21,6 +21,9 @@ import lombok.Data;
 
 @Data
 @Entity
+@JsonIgnoreProperties(value = {"taskDomain"
+}, allowGetters = true, allowSetters = false,
+        ignoreUnknown = true)
 @Table(name = "krl_log")
 public class LogDomain implements Serializable {
 
@@ -34,13 +37,13 @@ public class LogDomain implements Serializable {
     @Column(name = "tsk_id_task", nullable = false)
     private Integer taskId;
 
-    @Column(name = "clm_id_previous", insertable = false, updatable = false)
+    @Column(name = "clm_id_previous")
     private Integer idPrevious;
 
-    @Column(name = "clm_id_current", insertable = false, updatable = false)
+    @Column(name = "clm_id_current")
     private Integer idCurrent;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.ALL)
+    /*@ManyToOne(fetch = FetchType.LAZY, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "clm_id_previous", nullable = false, updatable = false)
     @JsonBackReference(value = "logPrevious")
     private ColumnDomain previous;
@@ -48,7 +51,7 @@ public class LogDomain implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "clm_id_current", nullable = false, updatable = false)
     @JsonBackReference(value = "logCurrent")
-    private ColumnDomain current;
+    private ColumnDomain current;*/
 
     @Column(name = "log_created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
@@ -57,4 +60,12 @@ public class LogDomain implements Serializable {
     @JoinColumn(name = "tsk_id_task", insertable = false, updatable = false)
     private TaskDomain taskDomain;
 
+    public LogDomain() {
+    }
+
+    public LogDomain(Integer taskId, Integer idPrevious, Integer idCurrent) {
+        this.taskId = taskId;
+        this.idPrevious = idPrevious;
+        this.idCurrent = idCurrent;
+    }
 }

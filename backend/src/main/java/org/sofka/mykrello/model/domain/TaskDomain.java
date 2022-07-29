@@ -45,7 +45,7 @@ public class TaskDomain implements Serializable {
     private String description;
 
     @Column(name = "tsk_delivery_date")
-    private LocalDateTime deliveryDate;
+    private LocalDate deliveryDate;
 
     @Column(name = "tsk_created_at")
     private Instant createdAt =  Instant.now();
@@ -56,9 +56,10 @@ public class TaskDomain implements Serializable {
     @JoinColumn(name = "clm_id_column", insertable = false, updatable = false)
     private ColumnDomain columnDomain;
 
-   @JoinColumn(name = "brd_id_board", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "brd_id_board", nullable = false, insertable = false, updatable = false)
     @ManyToOne(targetEntity = BoardDomain.class)
     private BoardDomain boardDomain;
 
-
+    public TaskDomain() {
+    }
 }

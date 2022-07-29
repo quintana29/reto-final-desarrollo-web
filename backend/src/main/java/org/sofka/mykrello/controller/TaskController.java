@@ -77,4 +77,25 @@ public class TaskController {
        }
    }
 
+    @PutMapping("/move-task/{id}/{idColumn}")
+    public ResponseEntity<MyResponseUtility> moveTask(@PathVariable("id") Integer taskId, @PathVariable("idColumn") Integer idColum)  {
+        try {
+            var taskUpdate = taskService.moveTask(taskId, idColum);
+            if (taskUpdate == null) {
+                response.responseMessage(false,HttpStatus.NOT_FOUND, "No se encontro la tarea");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
+            response.responseMessage(true,HttpStatus.OK, "Se desplazo la tarea correctamente",idColum);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }catch (DataAccessException e){
+            response.responseMessage(false, HttpStatus.BAD_REQUEST, e.getCause().getCause().getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            response.responseMessage(false, HttpStatus.BAD_REQUEST, e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
 }
