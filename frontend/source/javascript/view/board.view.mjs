@@ -1,8 +1,8 @@
 import { Utilities } from "./components/utilities.js";
 import { controller } from "../controller/board.controller.mjs";
+import { Config } from "../config.mjs";
 export class BoardView{
     #body;
-    #events;
     constructor(){
         this.#body=document.querySelector("body")
         this.structureCreateBoard();
@@ -10,12 +10,14 @@ export class BoardView{
             this.controlCreateBoard(event);
         })
     }
+    
     structureCreateBoard(){
+
         let contenedor=document.querySelector(".container")
+        console.log("sdfsdfdsf")
         contenedor.innerHTML=`
         <form class="row g-2">
             <div class="col-auto">
-                <label for="inputBoard" class="visually-hidden">Password</label>
                 <input type="text" class="form-control" name="nombre" id="inputBoard" placeholder="Ingrese el Nombre">
             </div>
             <div class="col-auto">
@@ -34,7 +36,7 @@ export class BoardView{
                 <div class="card-body">
                     <h5 class="card-title">${board.Name}</h5>
                     <p class="card-text">Board Id: ${board.Id}</p>
-                    <a href="#" class="btn btn-primary">Ir al tablero</a> 
+                    <a href="${Config.FrontendURL}/columns.html?id=${board.Id}" class="btn btn-primary" id=${board.Id} >Ir al tablero</a> 
                     <button type="button" class="btn btn-danger">Eliminar</button>
                 </div>
              </div>`;
