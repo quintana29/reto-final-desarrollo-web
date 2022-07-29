@@ -1,7 +1,18 @@
-.container {
-  width: 1300px;
-  border: 1px solid #c3c3c3;
-  border-radius: 4px;
-  margin-top: 16px;
-  padding: 8px;
+body{
+  background-image: url(../images/fondo.png);
 }
+h1{
+  font-size: 5rem;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+.container-fluid{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+}
+
+
+
+
