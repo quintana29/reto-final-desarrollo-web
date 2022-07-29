@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.sofka.mykrello.model.domain.BoardDomain;
 import org.sofka.mykrello.model.domain.ColumnForBoardDomain;
-import org.sofka.mykrello.model.repository.BoardRepository;
-import org.sofka.mykrello.model.repository.ColumnForBoardRepository;
-import org.sofka.mykrello.model.repository.ColumnRepository;
-import org.sofka.mykrello.model.repository.TaskRepository;
+import org.sofka.mykrello.model.repository.*;
 import org.sofka.mykrello.model.service.interfaces.BoardServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +24,11 @@ public class BoardService implements BoardServiceInterface {
 
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private LogRepository logRepository;
+    //@Autowired
+    //private TaskService taskService;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -67,19 +69,41 @@ public class BoardService implements BoardServiceInterface {
     @Override
     @Transactional
     public BoardDomain delete(Integer id) {
-        var optionalBoard = boardRepository.findById(id);
-        if (optionalBoard.isPresent()) {
-            var board = optionalBoard.get();
-            var columnsForBoard = board.getColumnsForBoard();
-            if (!columnsForBoard.isEmpty()) {
-                columnsForBoard.forEach((column) -> {
-                    columnForBoardRepository.delete(column);
-                });
-            }
-            boardRepository.delete(optionalBoard.get());
-            return optionalBoard.get();
-        }
-        return null;
-    }
 
+            var optionalBoard = boardRepository.findById(id);
+
+            if (optionalBoard.isPresent()) {
+                var board = optionalBoard.get();
+
+                // Se borran las columnas del tablero
+                var columnsForBoard = board.getColumnsForBoard();
+                if (!columnsForBoard.isEmpty()) {
+                    columnsForBoard.forEach((column) -> {
+                        columnForBoardRepository.delete(column);
+                    });
+                }
+
+                // Se borran las tareas
+                var tasks = taskRepository.findAllByIdBoard(id);
+                if (!tasks.isEmpty()) {
+                    tasks.forEach((task) -> {
+
+                        // Se borran los logs
+                        var logs = logRepository.findAllByTaskId(task.getId());
+                        if(!logs.isEmpty()) {
+                            logs.forEach((log) -> {
+                                logRepository.delete(log);
+                            });
+                        }
+
+                        taskRepository.delete(task);
+                    });
+                }
+                boardRepository.delete(optionalBoard.get());
+                return optionalBoard.get();
+
+
+    }
+        return null;
+}
 }

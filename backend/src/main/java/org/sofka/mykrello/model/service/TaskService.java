@@ -21,8 +21,6 @@ public class TaskService implements TaskServiceInterface {
     @Autowired
     private TaskRepository taskRepository;
     @Autowired
-    private BoardRepository boardRepository;
-    @Autowired
     private  BoardService boardService;
 
 
@@ -60,6 +58,7 @@ public class TaskService implements TaskServiceInterface {
         var oldTask = taskRepository.findById(id).orElse(null);
 
         if (oldTask != null){
+            task.setId(id);
             return taskRepository.save(task);
         }
 
@@ -98,5 +97,7 @@ public class TaskService implements TaskServiceInterface {
 
         return null;
     }
+
+
 
 }
