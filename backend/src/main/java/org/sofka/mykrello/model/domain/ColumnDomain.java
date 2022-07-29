@@ -51,16 +51,16 @@ public class ColumnDomain implements Serializable {
     @JsonManagedReference(value = "logPrevious")
     private List<LogDomain> logPrevious = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "current",orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "current")
     @JsonManagedReference(value = "logCurrent")
     private List<LogDomain> logCurrent = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = ColumnForBoardDomain.class, cascade = CascadeType.ALL, mappedBy = "column",orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = ColumnForBoardDomain.class, cascade = CascadeType.ALL, mappedBy = "column")
     @JsonManagedReference(value = "columnForBoards")
     private List<ColumnForBoardDomain> columnForBoards = new ArrayList<>();
 
-    @OneToMany(targetEntity = TaskDomain.class, fetch = FetchType.EAGER, mappedBy = "columnDomain",cascade = CascadeType.ALL,orphanRemoval = true)
+    /*@OneToMany(targetEntity = TaskDomain.class, fetch = FetchType.EAGER, mappedBy = "columnDomain",cascade = CascadeType.ALL)
     @JsonManagedReference(value = "column-task")
-    private List<TaskDomain> tasks = new ArrayList<>();
+    private List<TaskDomain> tasks = new ArrayList<>();*/
 
 }
