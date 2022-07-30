@@ -18,7 +18,7 @@ class BoardController {
     if (event.target.matches(".edit")) {
       console.log("{{{Entro a edit");
     }
-    if (event.target.matches(".btn")) {
+    if (event.target.matches(".btn-danger")) {
       this.#servicio.eliminar(event.target.id);
     }
   }

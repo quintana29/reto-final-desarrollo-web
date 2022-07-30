@@ -38,7 +38,7 @@ export class BoardView{
                 <div class="card-body">
                     <h5 class="card-title">${board.Name}</h5>
                     <p class="card-text">Board Id: ${board.Id}</p>
-                    <a href="${Config.FrontendURL}/columns.html?id=${board.Id}" class="btn btn-primary" id="B${board.Id}" >Ir al tablero</a> 
+                    <a href="${Config.FrontendURL}/columns.html?id=${board.Id}" class="btn btn-primary" >Ir al tablero</a> 
                     <button type="button" class="btn btn-danger" id=${board.Id}>Eliminar</button>
                 </div>
              </div>`;

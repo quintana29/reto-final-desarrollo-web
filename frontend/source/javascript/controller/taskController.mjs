@@ -27,6 +27,7 @@ class TaskController{
 
     redirect(event){
     if (event.target.matches(".edit")){
+        this.#viewTodo.showEditableTextArea()
             console.log("{{{Entro a edit")
         } 
       if (event.target.matches(".delete")) {

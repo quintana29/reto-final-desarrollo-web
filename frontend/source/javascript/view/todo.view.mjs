@@ -1,5 +1,6 @@
 import { Utilities } from "./components/utilities.js";
 import {controllerTodo} from "../controller/taskController.mjs"
+import { Config } from "../config.mjs";
 export class TodoView{
     #body;
     #root;
@@ -96,7 +97,7 @@ export class TodoView{
                 <div class="card-body">
                     <h5 class="card-title">${task.TskName}</h5>
                     <p class="card-text">${task.TskDescription}</p>
-                    <button class="edit">Editar</button> 
+                    <a href="${Config.FrontendURL}/taskDescription.html?id=${task.TskId}" class="btn btn-primary" >Ver tarea</a> 
                     <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
                 </div>
@@ -111,7 +112,7 @@ export class TodoView{
                     <div class="card-body">
                         <h5 class="card-title">${task.TskName}</h5>
                         <p class="card-text">${task.TskDescription}</p>
-                        <button class="edit">Editar</button> 
+                        <a href="${Config.FrontendURL}/taskDescription.html?id=${task.TskId}" class="btn btn-primary" >Ver tarea</a> 
                         <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     </div>
                  </div>`;
@@ -124,7 +125,7 @@ export class TodoView{
                     <div class="card-body">
                         <h5 class="card-title">${task.TskName}</h5>
                         <p class="card-text">${task.TskDescription}</p>
-                        <button class="edit">Editar</button> 
+                        <a href="${Config.FrontendURL}/taskDescription.html?id=${task.TskId}" class="btn btn-primary" >Ver tarea</a> 
                         <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     </div>
                  </div>`;
@@ -134,6 +135,7 @@ export class TodoView{
             
         });
     }
+
     controlTask(event){
         controllerTodo.controlCreate(event,this.#idboard);
     }

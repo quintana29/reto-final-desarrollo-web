@@ -74,4 +74,24 @@ export class TaskService {
       }
     }
   }
+
+  async getTaskById(id) {
+    const taskData = await fetch(
+      `${Config.BackendURL}/task/${id}`
+    ).then((response) => response.json());
+   
+
+   console.log(taskData.data)
+      const task = new TaskModel(
+        taskData.data.id,
+        taskData.data.idColum,
+        taskData.data.idBoard,
+        taskData.data.name,
+        taskData.data.description,
+        taskData.data.deliveryDate,
+        taskData.data.createdAt
+      );
+  
+    return task;
+  }
 }
