@@ -6,3 +6,36 @@ h1{
     color: rgb(0, 0, 0);
     text-align: center;
 }
+h2{
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+.root{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+.column1,.column2,.column3{
+    
+    background-color:  #04ac93d1;
+    border: solid  black;    
+}
+.column1{
+    order: 1;
+}
+.column2{
+    order: 2;
+}
+.column3{
+    order: 3;
+}
+
+.card{
+    padding-left: 10px;
+    background-color:  #fbdb3cde;
+    width: 80%;
+    height: 80%;
+    margin: 10px;
+}

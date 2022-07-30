@@ -16,6 +16,6 @@ export class Utilities{
     static createSpan(){
         return document.createElement('span');
     }
-
+   
 
 }
