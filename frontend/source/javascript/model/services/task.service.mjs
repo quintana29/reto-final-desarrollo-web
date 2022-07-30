@@ -82,9 +82,7 @@ export class TaskService {
    
 
    console.log(taskData.data)
-      const task = new TaskModel(
-        taskData.data.id,
-        taskData.data.idColum,
+      const task = new TaskModel(taskData.data.id,taskData.data.idColum,
         taskData.data.idBoard,
         taskData.data.name,
         taskData.data.description,
@@ -94,4 +92,21 @@ export class TaskService {
   
     return task;
   }
+  async upDateTaskColumn(idTask,idColumn){
+    try {
+      let options = {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json; charset=utf-8",
+          },
+        },
+        res = await fetch(`${Config.BackendURL}/task/move-task/${idTask}/${idColumn}`, options),
+        json = await res.json();
+
+      location.reload();
+    } catch (err) {
+      //alert(`Error ${err.status}: ${message}`);
+    }
+  }
+
 }

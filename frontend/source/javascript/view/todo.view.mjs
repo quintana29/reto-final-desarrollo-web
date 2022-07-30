@@ -30,17 +30,17 @@ export class TodoView{
     structureColumns(){
         this.#columnOne= Utilities.createCard();
         this.#columnOne.classList.add("column1");
-        this.#columnOne.id=1;
+        this.#columnOne.name="1";
         const h1col1=document.createElement("h2");
         h1col1.textContent="POR REALIZAR"
         this.#columnTwo = Utilities.createCard();
         this.#columnTwo.classList.add("column2");
-        this.#columnTwo.id=2;
+        this.#columnTwo.name="2";
         const h1col2=document.createElement("h2");
         h1col2.textContent="EN PROGRESO"
         this.#columnThree = Utilities.createCard();
         this.#columnThree.classList.add("column3");
-        this.#columnThree.id=3;
+        this.#columnThree.name="3";
         const h1col3=document.createElement("h2");
         h1col3.textContent="TERMINADO"
         const header1=document.createElement("div");
@@ -79,9 +79,40 @@ export class TodoView{
                 <button type="submit" class="btn btn-primary mb-2">Crear Tarea</button>
             </div>
         </form>`;
+
         this.#columnOne.append(h1col1,header1)
+        this.#columnOne.addEventListener("dragover",e=>{
+            e.preventDefault();
+            console.log("dragover")
+        })
+        this.#columnOne.addEventListener("drop",e=>{
+            const idTask=e.dataTransfer.getData("columnActual");
+            console.log("drop",e.target.name)
+            e.target.append(document.getElementById(idTask))
+            controllerTodo.changeColumn(idTask,e.target.name)
+        })
         this.#columnTwo.append(h1col2,header2)
+        this.#columnTwo.addEventListener("dragover",e=>{
+            e.preventDefault();
+            console.log("dragover")
+        })
+        this.#columnTwo.addEventListener("drop",e=>{
+            const idTask=e.dataTransfer.getData("columnActual");
+            console.log("drop",e.target.name)
+            e.target.append(document.getElementById(idTask))
+            controllerTodo.changeColumn(idTask,e.target.name)
+        })
         this.#columnThree.append(h1col3,header3)
+        this.#columnThree.addEventListener("dragover",e=>{
+            e.preventDefault();
+            console.log("dragover")
+        })
+        this.#columnThree.addEventListener("drop",e=>{
+            const idTask=e.dataTransfer.getData("columnActual");
+            console.log("drop",e.target.name)
+            e.target.append(document.getElementById(idTask))
+            controllerTodo.changeColumn(idTask,e.target.name)
+        })
         this.#root.append(this.#columnOne,this.#columnTwo,this.#columnThree)
 
     }
@@ -91,7 +122,9 @@ export class TodoView{
         
         tasks.forEach((task)=>{
             const card = Utilities.createCard();
+            card.draggable="true";
             if(task.ClmIdColumn===1){
+                card.id=`${task.TskId}`;
                 card.innerHTML=
             `<div class="card">
                 <div class="card-body">
@@ -102,10 +135,15 @@ export class TodoView{
                     <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
                 </div>
              </div>`;
+             card.addEventListener("dragstart",(e)=>{
+                e.dataTransfer.setData("columnActual",e.target.id)
+                console.log("dragstart")
+            });
              this.#columnOne.append(card);
              this.#root.append(this.#columnOne)
              
             }else if(task.ClmIdColumn===2){
+                card.id=`${task.TskId}`;
                 card.innerHTML=
                 `<div class="card" >
                 
@@ -116,9 +154,14 @@ export class TodoView{
                         <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     </div>
                  </div>`;
+                 card.addEventListener("dragstart",(e)=>{
+                    e.dataTransfer.setData("columnActual",e.target.id)
+                    console.log("dragstart")
+                });
                  this.#columnTwo.append(card);
                  this.#root.append(this.#columnTwo)
             }else{
+                card.id=`${task.TskId}`;
                 card.innerHTML=
                 `<div class="card" >
                 
@@ -129,6 +172,10 @@ export class TodoView{
                         <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     </div>
                  </div>`;
+                 card.addEventListener("dragstart",(e)=>{
+                    e.dataTransfer.setData("columnActual",e.target.id)
+                    console.log("dragstart")
+                });
                  this.#columnThree.append(card);
                  this.#root.append(this.#columnThree)
             }

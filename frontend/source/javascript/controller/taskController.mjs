@@ -24,7 +24,9 @@ class TaskController{
     controlCreate(event,idBoard){
         this.#servicioTodo.saveTask(event,idBoard);
     }
-
+    changeColumn(idtask,idcolumns){
+        this.#servicioTodo.upDateTaskColumn(idtask,idcolumns);
+    }
     redirect(event){
     if (event.target.matches(".edit")){
         this.#viewTodo.showEditableTextArea()
