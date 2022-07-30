@@ -19,25 +19,34 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
-
+/**
+ * Esta clase nos permite modelar la tabla que se encuentra en la base de datos mediante
+ * Jpa Hibernate, la cual representa la entidad Columna.
+ */
 @Data
 @Entity
 @Table(name = "krl_column")
 public class ColumnDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Ayuda a inicializar la variable upDateAt con un valor de la fecha actual
+     */
     @PreUpdate
     public void preUpdate() {
         if (this.updatedAt == null)
             this.updatedAt = Instant.now();
     }
-
+    /**
+     * Representa la llave primaria de la tabla krl_column
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clm_id", nullable = false)
     private Integer id;
-
+    /**
+     * Propiedades de la tabla krl_column
+     */
     @Column(name = "clm_name", nullable = false, length = 100)
     private String name;
 
@@ -47,20 +56,12 @@ public class ColumnDomain implements Serializable {
     @Column(name = "clm_updated_at")
     private Instant updatedAt;
 
-    /*@OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "previous",orphanRemoval = true)
-    @JsonManagedReference(value = "logPrevious")
-    private List<LogDomain> logPrevious = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "current")
-    @JsonManagedReference(value = "logCurrent")
-    private List<LogDomain> logCurrent = new ArrayList<>();*/
-
+    /**
+     * Relacion bidireccional con la tabla columnsForBoard
+     */
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ColumnForBoardDomain.class, cascade = CascadeType.ALL, mappedBy = "column")
     @JsonManagedReference(value = "columnForBoards")
     private List<ColumnForBoardDomain> columnForBoards = new ArrayList<>();
 
-    /*@OneToMany(targetEntity = TaskDomain.class, fetch = FetchType.EAGER, mappedBy = "columnDomain",cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "column-task")
-    private List<TaskDomain> tasks = new ArrayList<>();*/
 
 }

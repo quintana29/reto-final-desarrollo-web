@@ -18,7 +18,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-
+/**
+ * Esta clase nos permite modelar la tabla que se encuentra en la base de datos mediante
+ * Jpa Hibernate, la cual representa la entidad LogDomain.
+ */
 @Data
 @Entity
 @JsonIgnoreProperties(value = {"taskDomain"
@@ -28,12 +31,16 @@ import lombok.Data;
 public class LogDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Representa la llave primaria de la tabla krl_log
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "log_id", nullable = false, updatable = false)
     private Integer id;
-
+    /**
+     * Propiedades de la tabla krl_log
+     */
     @Column(name = "tsk_id_task", nullable = false)
     private Integer taskId;
 
@@ -43,29 +50,32 @@ public class LogDomain implements Serializable {
     @Column(name = "clm_id_current")
     private Integer idCurrent;
 
-    /*@ManyToOne(fetch = FetchType.LAZY, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "clm_id_previous", nullable = false, updatable = false)
-    @JsonBackReference(value = "logPrevious")
-    private ColumnDomain previous;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "clm_id_current", nullable = false, updatable = false)
-    @JsonBackReference(value = "logCurrent")
-    private ColumnDomain current;*/
 
     @Column(name = "log_created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
-
+    /**
+     * Relación unidireccional con la entidad taskDomain
+     */
     @ManyToOne(targetEntity = TaskDomain.class)
     @JoinColumn(name = "tsk_id_task", insertable = false, updatable = false)
     private TaskDomain taskDomain;
 
+    /**
+     * constructor por defecto
+     */
     public LogDomain() {
     }
 
+    /**
+     * Constructor para inicializar un Log al cual se le pasa como parametros
+     * @param taskId almacena el id de la tarea
+     * @param idPrevious almacena el id de la columna anterior
+     * @param idCurrent almacena el id de la columna actual
+     */
     public LogDomain(Integer taskId, Integer idPrevious, Integer idCurrent) {
         this.taskId = taskId;
         this.idPrevious = idPrevious;
         this.idCurrent = idCurrent;
     }
+
 }
