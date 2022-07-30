@@ -1,6 +1,6 @@
 import { Config } from "../../config.mjs";
 import{TaskModel} from "../task.model.mjs"
-export class ColumnService{
+export class TaskService{
     constructor(){   
     }
     
@@ -44,4 +44,31 @@ export class ColumnService{
         }
 
       } 
+
+      async eliminar(e){
+      
+     
+     
+     
+            //Delete - DELETE
+            try {
+              let options = {
+                  method: "DELETE",
+                  headers: {
+                    "Content-type": "application/json; charset=utf-8",
+                  },
+                },
+                res = await fetch(`${Config.BackendURL}/task/delete/${e.target.id.value}`,options),
+                json = await res.json();
+    
+              if (!res.ok) throw { status: res.status, statusText: res.statusText };
+    
+              location.reload();
+            } catch (err) {
+              let message = err.statusText || "Ocurrió un error";
+              //alert(`Error ${err.status}: ${message}`);
+            }
+          }
+        
+      
 }

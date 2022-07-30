@@ -1,5 +1,5 @@
 import { Utilities } from "./components/utilities.js";
-import {controllerTodo} from "../controller/columnscontroller.mjs"
+import {controllerTodo} from "../controller/taskController.mjs"
 export class TodoView{
     #body;
     #root;
@@ -15,9 +15,13 @@ export class TodoView{
         this.#root=document.querySelector(".root")
         this.structureColumns();
         document.addEventListener("submit",(event) => {
-            console.log(event)
             this.controlTask(event);
         })
+
+        document.addEventListener("click",(event) => {
+            controllerTodo.redirect(event);      
+        })
+        
         
     }
     
@@ -93,10 +97,12 @@ export class TodoView{
                 <div class="card-body">
                     <h5 class="card-title">${task.TskName}</h5>
                     <p class="card-text">${task.TskDescription}</p>
-                    <a href="columns.html" class="btn btn-primary">Editar</a> 
-                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button class="edit">Editar</button> 
+                    <button type="button" class="delete">Eliminar</button>
+                    <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
                 </div>
              </div>`;
+             card.querySelector(".delete").dataset.id = task.TskId;
              this.#columnOne.append(card);
              this.#root.append(this.#columnOne)
              
@@ -107,10 +113,12 @@ export class TodoView{
                     <div class="card-body">
                         <h5 class="card-title">${task.TskName}</h5>
                         <p class="card-text">${task.TskDescription}</p>
-                        <a href="columns.html" class="btn btn-primary">Editar</a> 
-                        <button type="button" class="btn btn-danger">Eliminar</button>
+                        <button class="edit">Editar</button> 
+                        <button type="button"  class="delete">Eliminar</button>
+                        <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
                     </div>
                  </div>`;
+                 card.querySelector(".delete").dataset.id = task.TskId;
                  this.#columnTwo.append(card);
                  this.#root.append(this.#columnTwo)
             }else{
@@ -120,10 +128,12 @@ export class TodoView{
                     <div class="card-body">
                         <h5 class="card-title">${task.TskName}</h5>
                         <p class="card-text">${task.TskDescription}</p>
-                        <a href="columns.html" class="btn btn-primary">Editar</a> 
-                        <button type="button" class="btn btn-danger">Eliminar</button>
+                        <button class="edit">Editar</button> 
+                        <button type="button" class="delete">Eliminar</button>
+                        <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
                     </div>
                  </div>`;
+                 card.querySelector(".delete").dataset.id = task.TskId;
                  this.#columnThree.append(card);
                  this.#root.append(this.#columnThree)
             }

@@ -1,11 +1,11 @@
 import {TodoView} from "../view/todo.view.mjs"
-import { ColumnService } from "../model/services/column.service.mjs";
-class ColumnController{
+import { TaskService } from "../model/services/task.service.mjs";
+class TaskController{
     #viewTodo
     #servicioTodo
     #idBoard;
     constructor(){
-        this.#servicioTodo=new ColumnService(); 
+        this.#servicioTodo=new TaskService(); 
         this.#captureID();
         this.#viewTodo=new TodoView(this.#idBoard);
         
@@ -25,6 +25,17 @@ class ColumnController{
         this.#servicioTodo.saveTask(event,idBoard);
     }
 
+    redirect(event){
+        if (event.target.matches(".edit")){
+            console.log("{{{"+event.target.dataset.initTodo)
+        } 
+      if (event.target.matches(".delete")) {
+        console.log("rrrrr"+event.target.dataset)
+      }
+       
+     //this.#servicioTodo.eliminar(event);
+    }
+        
 }
-export const controllerTodo = new ColumnController();
+export const controllerTodo = new TaskController();
 controllerTodo.initTodo();
