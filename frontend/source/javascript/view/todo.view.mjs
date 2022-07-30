@@ -93,16 +93,14 @@ export class TodoView{
             if(task.ClmIdColumn===1){
                 card.innerHTML=
             `<div class="card">
-            
                 <div class="card-body">
                     <h5 class="card-title">${task.TskName}</h5>
                     <p class="card-text">${task.TskDescription}</p>
                     <button class="edit">Editar</button> 
-                    <button type="button" class="delete">Eliminar</button>
+                    <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
                 </div>
              </div>`;
-             card.querySelector(".delete").dataset.id = task.TskId;
              this.#columnOne.append(card);
              this.#root.append(this.#columnOne)
              
@@ -114,11 +112,9 @@ export class TodoView{
                         <h5 class="card-title">${task.TskName}</h5>
                         <p class="card-text">${task.TskDescription}</p>
                         <button class="edit">Editar</button> 
-                        <button type="button"  class="delete">Eliminar</button>
-                        <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
+                        <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     </div>
                  </div>`;
-                 card.querySelector(".delete").dataset.id = task.TskId;
                  this.#columnTwo.append(card);
                  this.#root.append(this.#columnTwo)
             }else{
@@ -129,11 +125,9 @@ export class TodoView{
                         <h5 class="card-title">${task.TskName}</h5>
                         <p class="card-text">${task.TskDescription}</p>
                         <button class="edit">Editar</button> 
-                        <button type="button" class="delete">Eliminar</button>
-                        <input type="hidden" class="form-control" name="taskId" id="taskId" value="${task.TskId}">
+                        <button type="button" class="delete" id="${task.TskId}">Eliminar</button>
                     </div>
                  </div>`;
-                 card.querySelector(".delete").dataset.id = task.TskId;
                  this.#columnThree.append(card);
                  this.#root.append(this.#columnThree)
             }

@@ -26,14 +26,12 @@ class TaskController{
     }
 
     redirect(event){
-        if (event.target.matches(".edit")){
-            console.log("{{{"+event.target.dataset.initTodo)
+    if (event.target.matches(".edit")){
+            console.log("{{{Entro a edit")
         } 
       if (event.target.matches(".delete")) {
-        console.log("rrrrr"+event.target.dataset)
+        this.#servicioTodo.eliminar(event.target.id);
       }
-       
-     //this.#servicioTodo.eliminar(event);
     }
         
 }
