@@ -1,3 +1,6 @@
+/**
+ * Clase utilizada para crear elementos o etiquetas del HTML
+ */
 export class Utilities{
 
     static createCard(){

@@ -1,3 +1,6 @@
+/**
+ * Clase utilizada para contener objetos de tipo tarea
+ */
 export class TaskModel{
     #tskId;
     #clmIdColumn;
@@ -8,7 +11,15 @@ export class TaskModel{
     #tskCreatedAt;
     #tskUpdatedAt;
     #tskLogs;
-
+/**
+ * Constructor con todos los atributos del objeto tarea
+ * @param {*} id atributo de tipo Integer que contiene el identificador del objeto
+ * @param {*} idColumn atributo de tipo Integer que contiene el identificador de la columna 
+ * @param {*} idBoard atributo de tipo Integer que contiene el identificador del tablero
+ * @param {*} name atributo de tipo String que contiene el nombre de la tarea
+ * @param {*} description atributo de tipo String que contiene la descripción de la tarea
+ * @param {*} created atributo de tipo date que contiene la fecha de creación de la tarea
+ */
     constructor(id,idColumn,idBoard,name,description,created){
         this.#tskId=id;
         this.#clmIdColumn=idColumn;
@@ -19,6 +30,10 @@ export class TaskModel{
         //this.#tskUpdatedAt=updated;
         this.#tskLogs=[];
     }
+    /**
+     * Funciones gettes que devuelven el valor de cada atributo perteneciente 
+     * al objeto
+     */
     get TskId(){
         return this.#tskId;
     }
@@ -47,6 +62,11 @@ export class TaskModel{
     get TaskLogs(){
         return this.#tskLogs;
     }
+
+     /**
+     * Funciones set que permite registrar de forma individual
+     *  el valor de cada atributo perteneciente al objeto
+     */
     set TskId(id){
          this.#tskId=id;
     }
