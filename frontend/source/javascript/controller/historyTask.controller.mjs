@@ -1,6 +1,8 @@
 import { TaskService } from "../model/services/task.service.mjs";
 import { LogService } from "../model/services/log.service.mjs";
 import { HistoryTaskView } from "../view/historyTask.view.mjs";
+import { TaskModel } from "../model/task.model.mjs";
+
 class HistoryTaskController {
     #view;
     #servicio;
@@ -27,6 +29,11 @@ class HistoryTaskController {
         this.#idTask = urlParams.get("id");
 
     }
+    upDateTask(idtask,name,descripcion,idboard,idColumn,created,e){
+        if (e.target.matches(".update")){
+        const task = new TaskModel(idtask,idColumn,idboard,name,descripcion,created);
+        this.#servicio.upDateTsk(task);}
+    }
 }
-export const controller = new HistoryTaskController();
-controller.init();
+export const controllerHistory = new HistoryTaskController();
+controllerHistory.init();

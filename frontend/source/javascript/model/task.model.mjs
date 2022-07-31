@@ -9,13 +9,12 @@ export class TaskModel{
     #tskUpdatedAt;
     #tskLogs;
 
-    constructor(id,idColumn,idBoard,name,description,deliverateDate,created){
+    constructor(id,idColumn,idBoard,name,description,created){
         this.#tskId=id;
         this.#clmIdColumn=idColumn;
         this.#brdIdBoard=idBoard;
         this.#tskName=name;
         this.#tskDescription=description;
-        this.#tskDeliveryDate=deliverateDate;
         this.#tskCreatedAt=created;
         //this.#tskUpdatedAt=updated;
         this.#tskLogs=[];

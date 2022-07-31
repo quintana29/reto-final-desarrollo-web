@@ -1,19 +1,31 @@
 
 import { Utilities } from "./components/utilities.js";
-
+import { controllerHistory } from "../controller/historyTask.controller.mjs";
 
 export class HistoryTaskView{
     #root;
     #columnOne;
+    #idBoard;
+    #idColumn;
+    #created;
 
     constructor(){
         this.#root=document.querySelector(".root")
+        document.addEventListener("click",evnt=>{
+            let idTask=document.getElementById("taskId")
+            let name=document.getElementById("nombre")
+            let descripcion=document.getElementById("descripcion")
+            controllerHistory.upDateTask(idTask.value,name.value,descripcion.value,this.#idBoard,this.#idColumn,this.#created,evnt)
+        })
+
     }
   initTask(task){
       this.#columnOne = Utilities.createCard();
       this.#columnOne.classList.add("column");
       const card = Utilities.createCard();
-
+        this.#idBoard=task.BrdIdBoard
+        this.#idColumn=task.ClmIdColumn
+        this.#created=task.TskCreatedAt
       card.innerHTML =
           `<div class="card">
         <div class="card-body">
