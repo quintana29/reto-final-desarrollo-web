@@ -38,6 +38,22 @@ export class BoardService {
       location.reload();
     } catch (err) {}
   }
+  async edit(idBoard,name){
+    try {
+      let options = {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify({
+            name: name,
+          }),
+        },
+        res = await fetch(`${Config.BackendURL}/board/${idBoard}`, options),
+        json = await res.json();
+      location.reload();
+    } catch (err) {}
+  }
   async eliminar(e) {
     let isDelete = confirm(`¿Estás seguro de eliminar el id ${e}?`);
     if (isDelete) {

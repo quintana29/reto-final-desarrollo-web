@@ -21,6 +21,11 @@ class BoardController {
     if (event.target.matches(".btn-danger")) {
       this.#servicio.eliminar(event.target.id);
     }
+    if (event.code === 'Enter'){
+      console.log(event.target.id)
+      console.log(event.target.value)
+      this.#servicio.edit(event.target.id,event.target.value)
+    } //this.#servicio.edit(event.target.id)
   }
 }
 export const controller = new BoardController();

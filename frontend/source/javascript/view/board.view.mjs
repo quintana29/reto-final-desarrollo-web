@@ -13,6 +13,9 @@ export class BoardView{
         document.addEventListener("click",(event) => {
             controller.redirect(event);      
         })
+        document.addEventListener("keyup",(event) => {
+            controller.redirect(event);      
+        })
     }
     
     structureCreateBoard(){
@@ -36,7 +39,7 @@ export class BoardView{
             card.innerHTML=
             `<div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">${board.Name}</h5>
+                    <input class="card-title" id="${board.Id}" value="${board.Name}"></input>
                     <p class="card-text">Board Id: ${board.Id}</p>
                     <a href="${Config.FrontendURL}/columns.html?id=${board.Id}" class="btn btn-primary" >Ir al tablero</a> 
                     <button type="button" class="btn btn-danger" id=${board.Id}>Eliminar</button>
