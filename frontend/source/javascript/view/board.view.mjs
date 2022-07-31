@@ -48,7 +48,7 @@ export class BoardView {
 
             const card = Utilities.createCard();
             card.innerHTML =
-                `<div class="card" style="width: 18rem;">
+                `<div class="card" style="width: 25rem;">
                 <div class="card-body">
                     <input class="card-title" id="${board.Id}" value="${board.Name}"></input>
                     <p class="card-text">Board Id: ${board.Id}</p>

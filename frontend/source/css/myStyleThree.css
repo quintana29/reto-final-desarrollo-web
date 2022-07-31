@@ -1,0 +1,43 @@
+body{
+    background-image: url(../images/fondo.png);
+}
+h1{
+    font-size: 5rem;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+h2{
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+.root{
+    display: flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+        
+}
+.column{
+    width: 300px;
+}
+.card{
+    padding-left: 10px;
+    background-color:  #fbdb3cde;
+    width: 80%;
+    margin: 10px;
+}
+.container-fluid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;  
+  }
+.car-ort{
+    width: 25%; 
+    border: solid black 
+}
+.card-bo{
+    padding-left: 10px;
+    background-color:  #fbdb3cde;
+    width: 100%;
+    
+}
